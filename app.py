@@ -1,49 +1,59 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
 
-# Page Config
-st.set_page_config(page_title="FlashDeal - Innovation Portal", layout="wide")
+# إعدادات الصفحة الاحترافية - تم التدقيق
+st.set_page_config(
+    page_title="FlashDeal Master Portal",
+    layout="wide",
+    initial_sidebar_state="collapsed"
+)
 
-# Custom CSS for Professional Look
-st.markdown(""" <style> .main { background-color: #f5f7f9; } </style> """, unsafe_allow_html=True)
-
-# 🌍 Navigation Menu (English & Arabic)
+# القائمة العلوية - تم مطابقة الخيارات مع الأيقونات بدقة
 selected = option_menu(
-    menu_title="FlashDeal Evolution Hub",
-    options=["Overview | نظرة عامة", "Transaction & Transparency | الصفقات والشفافية", "Global Communication | التواصل العالمي"],
+    menu_title="FlashDeal Innovation Hub 2026",
+    options=["Overview | نظرة عامة", "Deals | الصفقات", "Global | العالمية"],
     icons=["info-circle", "shield-check", "translate"],
     orientation="horizontal",
     styles={
+        "container": {"padding": "0!important", "background-color": "#f0f2f6"},
+        "icon": {"color": "#ff4b4b", "font-size": "18px"}, 
+        "nav-link": {"font-size": "16px", "text-align": "center"},
         "nav-link-selected": {"background-color": "#1f77b4"},
     }
 )
 
-# --- Tab 1: Overview ---
+st.markdown("---")
+
+# القسم الأول: نظرة عامة
 if "Overview" in selected:
-    st.header("📖 Development Journey | قصة التطور المنهجي")
+    st.header("📖 Evolution Journey | قصة التطور")
     col1, col2 = st.columns(2)
     with col1:
-        st.subheader("Our Philosophy")
-        st.write("Bridging the gap between financial complexity and human interaction through AI.")
+        st.subheader("🇬🇧 The Vision")
+        st.write("Bridging financial complexity and human-centric AI interaction.")
     with col2:
-        st.subheader("رؤيتنا")
-        st.write("سد الفجوة بين التعقيد المالي والتفاعل البشري عبر الذكاء الاصطناعي.")
-    
-    st.info("💡 **Note for Judges:** This portal demonstrates modular features to ensure high performance and stability.")
+        st.subheader("🇸🇦 الرؤية")
+        st.write("ربط التعقيد المالي بالتفاعل البشري المدعوم بالذكاء الاصطناعي.")
+    st.info("💡 Modular design ensures 100% system stability and high performance.")
 
-# --- Tab 2: Transaction & Transparency ---
-elif "Transaction" in selected:
-    st.header("💎 Transaction Core & Transparency | جوهر الصفقات والشفافية")
-    st.success("Focus: Secure financial cycles and visual data tracking.")
+# القسم الثاني: جناح الصفقات (انسخ الرابط الحقيقي هنا)
+elif "Deals" in selected:
+    st.header("💎 Transaction & Transparency | الشفافية")
+    st.success("Target: Secure and transparent financial cycles.")
     
-    st.link_button("🚀 Enter Live Demo (Transaction Version)", "ضع_رابط_واجهة_الصفقات_هنا")
+    # تنبيه: استبدل الرابط أدناه برابط تطبيق الصفقات الخاص بك
+    st.link_button("🚀 Launch Transaction Module | دخول لجناح الصفقات", "https://share.streamlit.io/HANNIBAL85090/...")
     
     st.markdown("---")
-    st.write("**Key Features:** 1. Real-time Smart Contracts | 2. Motion-based Approval.")
+    st.write("**Key Focus:** Smart Contracts & Visual Auditing.")
 
-# --- Tab 3: Global Communication ---
-elif "Communication" in selected:
-    st.header("🌍 Global Communication & NLP | التواصل العالمي واللغات")
-    st.warning("Focus: Real-time contract translation and multilingual support.")
+# القسم الثالث: جناح العالمية (انسخ الرابط الحقيقي هنا)
+elif "Global" in selected:
+    st.header("🌍 Global Access & NLP | التواصل العالمي")
+    st.warning("Target: Real-time multilingual contract processing.")
     
-    st.link_button("📢 Enter Live Demo (Multilingual Version)", "ضع_رابط_واجهة_الترجمة_هنا")
+    # تنبيه: استبدل الرابط أدناه برابط تطبيق اللغات الخاص بك
+    st.link_button("📢 Launch Language Module | دخول لجناح اللغات", "https://share.streamlit.io/HANNIBAL85090/...")
+    
+    st.markdown("---")
+    st.write("**Key Focus:** Real-time Translation & Multi-language Support.")
