@@ -1,60 +1,49 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
 
-# إعدادات واجهة العرض الكبرى
-st.set_page_config(page_title="FlashDeal Master Portal", layout="wide")
+# Page Config
+st.set_page_config(page_title="FlashDeal - Innovation Portal", layout="wide")
 
-# تصميم القائمة العلوية للتنقل بين الأبواب
+# Custom CSS for Professional Look
+st.markdown(""" <style> .main { background-color: #f5f7f9; } </style> """, unsafe_allow_html=True)
+
+# 🌍 Navigation Menu (English & Arabic)
 selected = option_menu(
-    menu_title="FlashDeal: رحلة الابتكار وتدرج المزايا",
-    options=["نظرة عامة", "جناح الصفقات والشفافية", "جناح التواصل واللغات"],
-    icons=["info-circle", "gem", "translate"],
+    menu_title="FlashDeal Evolution Hub",
+    options=["Overview | نظرة عامة", "Transaction & Transparency | الصفقات والشفافية", "Global Communication | التواصل العالمي"],
+    icons=["info-circle", "shield-check", "translate"],
     orientation="horizontal",
     styles={
-        "container": {"padding": "0!important", "background-color": "#fafafa"},
-        "icon": {"color": "orange", "font-size": "25px"}, 
-        "nav-link": {"font-size": "18px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
-        "nav-link-selected": {"background-color": "#02ab21"},
+        "nav-link-selected": {"background-color": "#1f77b4"},
     }
 )
 
-# --- الباب الأول: نظرة عامة ---
-if selected == "نظرة عامة":
-    st.header("📖 قصة التطور (تدرج العمل)")
-    st.write("مرحباً بكم في منصة العرض المنهجي لـ FlashDeal. هنا نعرض تدرجنا من الفكرة إلى التنفيذ المتقدم.")
-    
-    st.info("💡 ملاحظة للحكام: تم توزيع الميزات في 'أجنحة' مستقلة لضمان استقرار الأداء التقني العالي لكل ميزة.")
-    
-    # هنا نضع فلسفة المشروع
-    with st.expander("إظهار مبررات تدرج العمل"):
-        st.write("""
-        ١. بدأت الرحلة ببناء المحرك المالي الأساسي.
-        ٢. تم تطوير الوكيل الذكي للتعامل مع الإيماءات.
-        ٣. أضفنا طبقة الشمولية اللغوية لضمان وصول الخدمة للجميع.
-        """)
-
-# --- الباب الثاني: جناح الصفقات والشفافية ---
-elif selected == "جناح الصفقات والشفافية":
-    st.header("💎 ميزة إبرام الصفقات والنزاهة الرقمية")
-    st.success("التركيز هنا: اكتمال الدورة المالية، الوكيل الذكي، والشفافية.")
-    
-    col1, col2 = st.columns([2, 1])
+# --- Tab 1: Overview ---
+if "Overview" in selected:
+    st.header("📖 Development Journey | قصة التطور المنهجي")
+    col1, col2 = st.columns(2)
     with col1:
-        st.write("في هذه النسخة، يرى الحكام قدرة النظام على:")
-        st.write("- إدارة العقود والصفقات المالية.")
-        st.write("- توفير لوحة شفافية تتبع التدفق المالي.")
-        # ملاحظة: ضع رابط تطبيقك الذي تكتمل فيه الصفقة أدناه
-        st.link_button("🚀 دخول للواجهة الحية (نسخة الأداء المالي)", "https://share.streamlit.io/") 
-
-# --- الباب الثالث: جناح التواصل واللغات ---
-elif selected == "جناح التواصل واللغات":
-    st.header("🌍 ميزة الشمولية والتواصل العالمي")
-    st.warning("التركيز هنا: الترجمة الفورية للعقود، ودعم اللغات المتعددة.")
+        st.subheader("Our Philosophy")
+        st.write("Bridging the gap between financial complexity and human interaction through AI.")
+    with col2:
+        st.subheader("رؤيتنا")
+        st.write("سد الفجوة بين التعقيد المالي والتفاعل البشري عبر الذكاء الاصطناعي.")
     
-    col1, col2 = st.columns([2, 1])
-    with col1:
-        st.write("هنا نبرهن على عالمية FlashDeal من خلال:")
-        st.write("- ترجمة فورية لمحتوى الصفقات.")
-        st.write("- واجهة مستخدم تتحدث لغة العميل.")
-        # ملاحظة: ضع رابط تطبيقك الذي تبرز فيه الترجمة واللغات أدناه
-        st.link_button("📢 دخول للواجهة الحية (نسخة التواصل العالمي)", "https://share.streamlit.io/")
+    st.info("💡 **Note for Judges:** This portal demonstrates modular features to ensure high performance and stability.")
+
+# --- Tab 2: Transaction & Transparency ---
+elif "Transaction" in selected:
+    st.header("💎 Transaction Core & Transparency | جوهر الصفقات والشفافية")
+    st.success("Focus: Secure financial cycles and visual data tracking.")
+    
+    st.link_button("🚀 Enter Live Demo (Transaction Version)", "ضع_رابط_واجهة_الصفقات_هنا")
+    
+    st.markdown("---")
+    st.write("**Key Features:** 1. Real-time Smart Contracts | 2. Motion-based Approval.")
+
+# --- Tab 3: Global Communication ---
+elif "Communication" in selected:
+    st.header("🌍 Global Communication & NLP | التواصل العالمي واللغات")
+    st.warning("Focus: Real-time contract translation and multilingual support.")
+    
+    st.link_button("📢 Enter Live Demo (Multilingual Version)", "ضع_رابط_واجهة_الترجمة_هنا")
