@@ -2,29 +2,29 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 import pandas as pd
 
-# --- ١. إعدادات الهوية الكاملة ---
+# --- 1. إعدادات البوابة الاحترافية ---
 st.set_page_config(page_title="My FlashDeal Star", page_icon="⭐", layout="wide")
 
-# --- ٢. القائمة التفاعلية العلوية (Horizontal Navigation) ---
+# --- 2. القائمة التفاعلية العلوية ---
 selected = option_menu(
     menu_title=None,
-    options=["Vision", "Transactions", "Agent Intelligent", "Analytics"],
-    icons=["house", "currency-dollar", "robot", "graph-up"],
+    options=["Vision", "Transactions", "Agent AI", "Dashboard"],
+    icons=["eye", "cash-stack", "robot", "graph-up"],
     orientation="horizontal",
     styles={
         "container": {"padding": "0!important", "background-color": "#f8f9fa"},
-        "nav-link-selected": {"background-color": "#02ab21"},
+        "nav-link-selected": {"background-color": "#02ab21", "color": "white"},
     }
 )
 
-# --- ٣. تأثيث الأقسام (تجاوز الأخطاء السابقة) ---
+# --- 3. محتوى الأقسام (ثبات 100%) ---
 
 if selected == "Vision":
     st.title("⚡ ⭐ My FlashDeal Star")
     st.markdown("### Strategic Vision | الرؤية الاستراتيجية")
-    st.info("Building bridges of trust and transparency in the digital deals world with 100% stability.")
-    st.success("✅ النظام يعمل الآن بكفاءة عالية وفق المعايير العالمية.")
-    st.balloons()
+    st.info("Building bridges of trust and transparency with 100% stability.")
+    st.success("✅ النظام مستقر الآن ويعمل بكفاءة عالية وفق المعايير العالمية.")
+    st.balloons() # احتفال بالعودة للعمل
 
 elif selected == "Transactions":
     st.header("Transparence: Prix et Valeur")
@@ -38,19 +38,18 @@ elif selected == "Transactions":
             st.snow()
             st.success("Accord confirmé avec succès!")
 
-elif selected == "Agent Intelligent":
-    st.title("🤖 Agent Intelligent Control")
-    st.warning("Note: Le mode caméra est en maintenance pour assurer la stabilité du serveur.")
-    st.write("Interface de commande vocale et textuelle prête.")
-    text_cmd = st.text_input("Entrez votre commande (ex: Valider, Annuler):")
-    if text_cmd:
-        st.write(f"🔄 Traitement de la commande: **{text_cmd}**...")
+elif selected == "Agent AI":
+    st.title("🤖 Agent Intelligent")
+    st.warning("وضع الكاميرا متوقف حالياً لضمان استقرار السيرفر.")
+    st.write("النظام جاهز لاستقبال الأوامر النصية:")
+    cmd = st.text_input("Entrez votre commande (ex: Valider):")
+    if cmd:
+        st.write(f"🔄 Traitement de: **{cmd}**...")
 
-elif selected == "Analytics":
-    st.title("📊 Tableau de Bord")
-    data = pd.DataFrame({"Stabilité": [80, 85, 90, 95, 100]})
-    st.line_chart(data)
-    st.metric("Fiabilité du Système", "100%", "Stable")
+elif selected == "Dashboard":
+    st.title("📊 Analytics Dashboard")
+    st.line_chart([10, 25, 45, 90, 100])
+    st.metric("System Stability", "100%", "Secure")
 
 st.divider()
-st.caption("FlashDeal Final Portal v3.0 | 2026 | Stability Guaranteed")
+st.caption("FlashDeal Portal v3.0 | 2026 | الاستقرار هو الأولوية")
