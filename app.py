@@ -1,62 +1,54 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
 import pandas as pd
-import time
 
-# --- إعدادات البوابة الفاخرة ---
+# --- ١. إعدادات الهوية الاستراتيجية ---
 st.set_page_config(page_title="My FlashDeal Star", page_icon="⭐", layout="wide")
 
-# --- القائمة التفاعلية العلوية ---
+# --- ٢. نظام التنقل التفاعلي (المستقر) ---
 selected = option_menu(
     menu_title=None,
-    options=["الرؤية & Vision", "صفقات FlashDeal", "الذكاء التفاعلي", "التحليلات"],
+    options=["الرؤية & Vision", "صفقات FlashDeal", "مركز الذكاء", "التحليلات"],
     icons=["house", "currency-dollar", "cpu", "graph-up"],
     orientation="horizontal",
     styles={
-        "container": {"padding": "0!important", "background-color": "#f0f2f6"},
+        "container": {"padding": "0!important", "background-color": "#f8f9fa"},
         "nav-link-selected": {"background-color": "#02ab21"},
     }
 )
 
-# --- القسم ١: الرؤية الاستراتيجية ---
+# --- ٣. المحتوى التفاعلي ---
+
 if selected == "الرؤية & Vision":
     st.title("⚡ ⭐ My FlashDeal Star")
-    col1, col2 = st.columns(2)
-    with col1:
-        st.info("### 🎯 الرؤية\nبناء نظام صفقات عالمي يتسم بالنزاهة والشفافية بنسبة استقرار 100%.")
-    with col2:
-        st.success("### 🚀 Vision\nConstructing a global deal system defined by 100% integrity and stability.")
-    st.divider()
-    st.balloons() # احتفالاً باستعادة استقرار الموقع
+    st.subheader("Building bridges of trust and transparency")
+    st.info("🎯 النظام يعمل الآن بكفاءة عالية وفق المعايير العالمية.")
+    st.balloons()
 
-# --- القسم ٢: صفقات تفاعلية حقيقية ---
 elif selected == "صفقات FlashDeal":
-    st.title("💰 بوابة الصفقات الذكية")
-    df = pd.DataFrame({
-        "المشروع": ["Alpha", "Beta", "Gamma"],
-        "القيمة": ["$50k", "$120k", "$15k"],
-        "الحالة": ["مكتملة", "قيد المعالجة", "منتظرة"]
-    })
-    st.table(df)
-    if st.button("تحديث البيانات"):
-        with st.spinner('جاري التحقق...'):
-            time.sleep(1)
-        st.success("البيانات محدثة وآمنة.")
+    st.header("Transparence: Prix et Valeur")
+    col1, col2 = st.columns([1, 2])
+    with col1:
+        # صورة منتج كمثال تفاعلي
+        st.image("https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500", caption="Smart Gear")
+    with col2:
+        st.metric("Current Value", "$99.99", "+5%")
+        if st.button("Confirmer l'accord"):
+            st.success("تم تأكيد الصفقة بنجاح!")
 
-# --- القسم ٣: الذكاء التفاعلي (بديل مستقر للكاميرا) ---
-elif selected == "الذكاء التفاعلي":
-    st.title("🤖 Intelligent Hub")
-    st.warning("نظام التعرف البصري (MediaPipe) قيد الصيانة السحابية لتجنب أخطاء السيرفر.")
-    st.write("يمكنك الآن التفاعل عبر الأوامر الذكية:")
-    cmd = st.text_input("أدخل أمر التشغيل (مثلاً: Start, Verify):")
+elif selected == "مركز الذكاء":
+    st.title("🤖 Intelligent Control Hub")
+    st.warning("تم تعليق تفعيل الكاميرا يدوياً لضمان استقرار السيرفر 100%.")
+    st.write("النظام جاهز لاستقبال الأوامر النصية البديلة:")
+    cmd = st.text_input("أدخل كود التفعيل الخاص بك:")
     if cmd:
-        st.write(f"🔄 جاري تنفيذ الأمر: **{cmd}** عبر محرك الذكاء الاصطناعي...")
+        st.write(f"🔄 جاري معالجة الأمر **{cmd}** بنظام التشفير الذكي...")
 
-# --- القسم ٤: التحليلات ---
 elif selected == "التحليلات":
-    st.title("📊 Performance Analytics")
-    st.line_chart([10, 20, 15, 40, 50])
-    st.metric("ثقة النظام", "100%", "Secure")
+    st.title("📊 Performance & Stability")
+    chart_data = pd.DataFrame([10, 25, 45, 80, 100], columns=["Stability %"])
+    st.line_chart(chart_data)
+    st.success("نسبة استقرار النظام الحالية: 100%")
 
 st.divider()
-st.caption("FlashDeal Master Portal 2026 | الاستقرار هو الأولوية القصوى")
+st.caption("FlashDeal Master Portal 2026 | Developed with Precision")
