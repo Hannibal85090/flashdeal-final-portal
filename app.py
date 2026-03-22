@@ -38,6 +38,17 @@ elif selected == "Transactions":
             st.snow()
             st.success("Accord confirmé avec succès!")
 
+    # أضف المحتوى الإضافي هنا داخل نفس الكتلة
+    st.header("💎 سجل الصفقات الذهبية")
+    data = {
+        "المعرف": ["FD-STAR-01", "FD-STAR-02"],
+        "القيمة": ["$1,200", "$3,500"],
+        "التوقيت": ["10:30 PM", "11:45 PM"],
+        "الحالة": ["✅ مؤكدة", "⏳ معالجة"]
+    }
+    st.table(data)
+    st.success("تم تحديث السجل بنجاح وفق بروتوكول FlashDeal.")
+
 elif selected == "Agent AI":
     st.title("🤖 Agent Intelligent")
     st.warning("وضع الكاميرا متوقف حالياً لضمان استقرار السيرفر.")
@@ -53,14 +64,3 @@ elif selected == "Dashboard":
 
 st.divider()
 st.caption("FlashDeal Portal v3.0 | 2026 | الاستقرار هو الأولوية")
-# أضف هذا الجزء داخل شرط قسم Transactions ليكون المحتوى غنياً
-elif selected == "Transactions":
-    st.header("💎 سجل الصفقات الذهبية")
-    data = {
-        "المعرف": ["FD-STAR-01", "FD-STAR-02"],
-        "القيمة": ["$1,200", "$3,500"],
-        "التوقيت": ["10:30 PM", "11:45 PM"],
-        "الحالة": ["✅ مؤكدة", "⏳ معالجة"]
-    }
-    st.table(data)
-    st.success("تم تحديث السجل بنجاح وفق بروتوكول FlashDeal.")
