@@ -1,202 +1,119 @@
 import streamlit as st
 import time
 
-# --- 1. إعدادات المنصة والهوية (لضمان الفطنة في العرض) ---
-st.set_page_config(page_title="My FlashDeal Star | Sovereign Pitch", page_icon="🌟", layout="wide")
+# --- إعدادات الصفحة الأساسية ---
+st.set_page_config(page_title="My FlashDeal Star", page_icon="🌟", layout="wide")
 
-# تهيئة سجل الذاكرة إذا لم يكن موجوداً
-if 'history' not in st.session_state:
-    st.session_state.history = []
-
-def add_to_memory(action):
-    timestamp = time.strftime("%H:%M:%S")
-    st.session_state.history.append(f"[{timestamp}] - {action}")
-
-# --- 2. الهندسة البصرية المتقدمة (CSS) ---
-# دمج الخلفية الزرقاء الداكنة وتنسيق العناصر (النقطة 1، 2، 3)
+# تخصيص المظهر بالكامل (الخلفية الزرقاء الداكنة وتنسيق النجوم)
 st.markdown("""
 <style>
-/* الخلفية الزرقاء الداكنة الفخمة (من الصورة 2) مع تأثير الصنوبر */
-.stApp {
-    background: linear-gradient(135deg, #001a33 0%, #003366 100%);
-    background-image: url("https://www.transparenttextures.com/patterns/pinetree.png");
-    background-blend-mode: overlay;
-}
-/* تنسيق العنوان الرئيسي والنجوم الملتصقة (النقطة 1، 2) */
-.title-container { text-align: center; margin-top: -30px; margin-bottom: 5px; }
-.title-text {
-    display: inline-block;
-    color: white;
-    font-size: 3.5rem;
-    font-weight: bold;
-    text-shadow: 0 0 15px white;
-    vertical-align: middle;
-}
-.star-attached { color: gold; font-size: 3rem; vertical-align: middle; }
+    /* الخلفية الزرقاء الداكنة (من الصورة 2) */
+    .stApp {
+        background-color: #001a33;
+        background-image: linear-gradient(180deg, #001a33 0%, #003366 100%);
+        color: white;
+    }
+    /* تنسيق العنوان الرئيسي والنجوم الملتصقة (النقطة 1، 2) */
+    .header-container { text-align: center; margin-bottom: 0px; }
+    .main-title { color: white; font-size: 50px; font-weight: bold; display: inline-block; vertical-align: middle; }
+    .star-side { color: gold; font-size: 45px; vertical-align: middle; margin: 0 10px; }
+    
+    /* النجمة الثالثة الكبرى تحت العنوان (النقطة 3) */
+    .center-star { text-align: center; color: gold; font-size: 80px; margin-top: -20px; text-shadow: 0 0 20px gold; }
+    
+    /* الشعار بخلفية بيضاء (النقطة 4) */
+    .motto-box {
+        background-color: white; color: black; font-weight: bold; padding: 10px 30px;
+        border-radius: 10px; border: 2px solid gold; width: fit-content; margin: 0 auto; font-size: 24px;
+    }
+    
+    /* التوقيت بلون سيان (النقطة 5) */
+    .time-display { text-align: center; color: #00ffff; font-family: monospace; font-size: 18px; margin-top: 10px; }
 
-/* النجمة الكبرى (النقطة 3) تحت العنوان */
-.mega-star {
-    text-align: center;
-    font-size: 90px;
-    color: gold;
-    text-shadow: 0 0 40px gold;
-    margin: -15px 0;
-}
-
-/* الشعار الأبيض (Motto) تحت النجمة مباشرة (النقطة 4) */
-.motto-bar {
-    text-align: center;
-    color: #000;
-    font-size: 24px;
-    font-weight: bold;
-    background: white;
-    border: 3px solid gold;
-    border-radius: 15px;
-    padding: 10px 40px;
-    width: fit-content;
-    margin: 10px auto;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-}
-
-/* التوقيت الحي (تاريخ ووقت فقط) (النقطة 5) */
-.clock-display {
-    text-align: center;
-    color: #00ffff;
-    font-size: 20px;
-    font-weight: bold;
-    font-family: monospace;
-    margin-bottom: 25px;
-}
-
-/* بطاقات سادن والتحكم بنص أسود فاحم (النقطة 7، 8) */
-.saden-box { background: #fff; border-radius: 15px; padding: 20px; border: 2px solid gold; margin-bottom: 15px; }
-.dark-label { color: #000 !important; font-weight: 900; font-size: 22px; margin-bottom: 10px; border-bottom: 2px solid #000; }
-
-/* بطاقة المنتج المصفاة (النقطة 15) */
-.product-card {
-    padding: 20px;
-    border-radius: 20px;
-    background: rgba(255,255,255,0.08);
-    border: 2px solid #00ffcc;
-    text-align: center;
-}
-/* شهادة الصفقة (النقطة 14) */
-.cert-card { border: 4px double gold; padding: 25px; border-radius: 15px; background: rgba(0,0,0,0.85); text-align: center; color: white; margin-top: 15px; }
+    /* تنسيق الحاويات (سادن والتحكم) */
+    .content-box { background: white; color: black; padding: 15px; border-radius: 10px; border: 2px solid gold; margin-bottom: 10px; }
+    .box-title { font-weight: bold; font-size: 20px; border-bottom: 2px solid black; margin-bottom: 10px; }
 </style>
 """, unsafe_allow_html=True)
 
-# --- 3. القاموس اللغوي وتنسيق الجانب الأيسر ---
-# خيارات اللغات الأربع (النقطة 17)
-LANG_DICT = {
-    'Arabic': {'motto':"تكلم ، ادفع ، تم .", 'saden':"🛡️ أمان سادن", 'infra':"🏠 التحكم في الأصول", 'exec':"إبرام الصفقة 🚀", 'prod':"سماعات كوفيه ستار", 'price':"99.99 $"},
-    'English': {'motto':"TALK , PAY , DONE .", 'saden':"🛡️ Saden Security", 'infra':"🏠 Asset Control", 'exec':"Execute Deal 🚀", 'prod':"Cuffie Star Headphones", 'price':"$99.99"},
-    'Italiano': {'motto':"PARLA , PAGA , FATTO .", 'saden':"🛡️ Sicurezza Saden", 'infra':"🏠 Controllo Asset", 'exec':"Concludi l'Accord 🚀", 'prod':"Cuffie Star", 'price':"99.99 $"},
-    'Français': {'motto':"PARLE , PAIE , TERMINÉ .", 'saden':"🛡️ Sécurité Saden", 'infra':"🏠 Contrôle d'Actifs", 'exec':"Conclure d'Accord 🚀", 'prod':"Casque Cuffie Star", 'price':"99.99 €"}
-}
-
+# --- الجانب الأيسر (المنيو) ---
 with st.sidebar:
     st.markdown("### 🌐 Languages / اللغات")
-    sel_lang = st.selectbox("", list(LANG_DICT.keys()), label_visibility="collapsed")
-    T = LANG_DICT[sel_lang]
-    st.divider()
+    lang = st.selectbox("", ["Arabic", "English", "Italiano", "Français"], label_visibility="collapsed")
     
-    # خيار Standar و Master Alpha 🔓 (النقطة 18)
     st.markdown("### 🔑 System Access")
-    acc_mode = st.radio("", ["Standard", "Master Alpha 🔓"], label_visibility="collapsed")
-    if acc_mode == "Master Alpha 🔓":
-        st.success("Master Alpha Mode: Active")
-        add_to_memory("Alpha Master Authorized")
+    access = st.radio("", ["Standard", "Master Alpha 🔓"], label_visibility="collapsed")
+    if access == "Master Alpha 🔓":
+        st.success("Master Alpha: Active")
     
-    st.divider()
-    # سجل الذاكرة (النقطة 20)
-    with st.expander("📜 سجل الذاكرة / Memory Log", expanded=True):
-        for item in reversed(st.session_state.history): st.write(item)
+    st.markdown("### 📜 سجل الذاكرة / Memory Log")
+    if 'history' not in st.session_state: st.session_state.history = ["[12:54:00] System Ready"]
+    for entry in reversed(st.session_state.history): st.write(entry)
 
-# --- 4. الهيكل البصري الرئيسي (تنفيذ دقيق للتسلسل المطلوب) ---
+# --- 1-5: رأس الصفحة (العنوان، النجوم، الشعار، الوقت) ---
+st.markdown('<div class="header-container"><span class="star-side">✨</span><div class="main-title">My FlashDeal Star</div><span class="star-side">✨</span></div>', unsafe_allow_html=True)
+st.markdown('<div class="center-star">★</div>', unsafe_allow_html=True)
+st.markdown('<div class="motto-box">. تكلم ، ادفع ، تم .</div>', unsafe_allow_html=True)
+st.markdown(f'<div class="time-display">{time.strftime("24/03/2026 - %H:%M:%S")}</div>', unsafe_allow_html=True)
 
-# أ. العنوان والنجوم الملتصقة: ✨My FlashDeal Star✨ (النقطة 1، 2)
-st.markdown(f'<div class="title-container"><span class="star-attached">✨</span><span class="title-text">My FlashDeal Star</span><span class="star-attached">✨</span></div>', unsafe_allow_html=True)
+st.divider()
 
-# ب. النجمة الكبرى تحت العنوان مباشرة (النقطة 3)
-st.markdown('<div class="mega-star">★</div>', unsafe_allow_html=True)
-
-# ج. الشعار تحت النجمة مباشرة بخلفية بيضاء بارزة (النقطة 4)
-st.markdown(f'<div class="motto-bar">{T["motto"]}</div>', unsafe_allow_html=True)
-
-# د. التوقيت والتاريخ الصافي (تاريخ ووقت فقط بلون سيان) (النقطة 5)
-st.markdown(f'<div class="clock-display">{time.strftime("%d/%M/%Y - %H:%M:%S")}</div>', unsafe_allow_html=True)
-
-# هـ. أزرار المهام الخماسية بأيقوناتها المحددة (النقطة 6)
+# --- 6: الأزرار الخماسية ---
 c1, c2, c3, c4, c5 = st.columns(5)
-with c1: st.button("👤 Face ID")
-with c2: st.button("🔑 Key")
-with c3: st.button("✋ Gesture")
-with c4: st.button("🔒 Lock/Sync")
-with c5: st.button("💎 Trans") # الجوهرة
+with c1: st.button("👤 Face ID", use_container_width=True)
+with c2: st.button("🔑 Key", use_container_width=True)
+with c3: st.button("✋ Hand", use_container_width=True)
+with c4: st.button("🔒 Lock", use_container_width=True)
+with c5: st.button("💎 Jewel", use_container_width=True)
 
 st.divider()
 
-# --- 5. نظام سادن والتحكم (النقطة 7-11) ---
-col_saden, col_infra = st.columns(2)
+# --- 7-11: سادن والتحكم والكاميرا ---
+col_left, col_right = st.columns(2)
 
-with col_saden:
-    # أمان سادن في خانة بيضاء بنص أسود فاحم داكن (النقطة 7)
-    st.markdown(f'<div class="saden-box"><div class="dark-label">{T["saden"]}</div></div>', unsafe_allow_html=True)
-    
-    # الكاميرا مفعلة (النقطة 9)
-    st.camera_input("Scan", key="cam", label_visibility="collapsed")
-    
-    # مستطيلات التوكن مع ميزة الإظهار (النقطة 10، 11)
-    st.text_input("Token ID (Saden)", type="password", help="أدخل توكن سادن الخاص بك")
-    st.text_input("Mutual Token 👁️", type="password", help="انقر على العين للإظهار")
+with col_left:
+    st.markdown('<div class="content-box"><div class="box-title">🛡️ أمان سادن</div></div>', unsafe_allow_html=True)
+    st.camera_input("Take Photo", key="cam")
+    st.text_input("Token ID (Saden)", type="password")
+    st.text_input("Mutual Token 👁️", type="password")
 
-with col_infra:
-    # التحكم بالأصول في خانة بيضاء بنص أسود داكن (النقطة 8)
-    st.markdown(f'<div class="saden-box"><div class="dark-label">{T["infra"]}</div></div>', unsafe_allow_html=True)
-    st.button("🚗 Start Car Engine", use_container_width=True)
+with col_right:
+    st.markdown('<div class="content-box"><div class="box-title">🏠 التحكم في الأصول</div></div>', unsafe_allow_html=True)
+    st.button("🚗 Start Engine", use_container_width=True)
     st.button("🏠 Home Security", use_container_width=True)
-    st.info("نظام التحكم في الأصول جاهز للتشغيل")
+    st.info("نظام التحكم في الأصول جاهز")
 
 st.divider()
 
-# --- 6. الوكيل الذكي والمنتج (النقاط 12-16) ---
-col_agent, col_prod = st.columns([1.5, 1])
+# --- 12-16: الوكيل والمنتج والشهادة ---
+bot_l, bot_r = st.columns([2, 1])
 
-with col_agent:
-    st.subheader("🤝 Smart Agent")
-    
-    # مستطيل التفاعل بالكتابة (النقطة 13)
-    user_context = st.text_area("⌨️ اكتب أمرك أو تفاصيل الصفقة (Sony-Agent):", placeholder="e.g. Buying materials...")
-    
-    # رمز اليدين والمصافحة لإبرام الصفقة (النقطة 12)
-    if st.button(f"🤝 {T['exec']}", type="primary", use_container_width=True):
-        st.balloons() # احتفالية البالونات
-        # تفعيل الموسيقى تلقائياً (النقطة 13)
-        st.audio("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", autoplay=True)
-        
-        st.success("TRANSACTION SECURED! ✅")
-        # إصدار شهادة اتمام الصفقة (النقطة 14)
+with bot_l:
+    st.markdown("### 🤝 Sony Agent")
+    context = st.text_area("وصف الصفقة / Deal Description:", placeholder="e.g. Buying materials...")
+    if st.button("إبرام الصفقة 🤝", type="primary", use_container_width=True):
+        st.balloons()
+        st.success("Deal Executed Successfully! ✅")
+        # 14: إصدار الشهادة
         st.markdown(f"""
-        <div class="cert-card">
-            <h3>📜 CERTIFICATE OF COMPLETION</h3>
-            <hr style="border: 0.5px solid gold;">
-            <p><b>Deal Description:</b> {user_context if user_context else "FlashDeal Strategic Asset"}</p>
-            <p>Verified by **Master Alpha 🔓** | {time.strftime('%Y-%m-%d %H:%M')}</p>
-            <small>SADEN Mututal Token Enabled</small>
+        <div style="border: 4px double gold; padding: 20px; background: rgba(0,0,0,0.5); text-align: center;">
+            <h2>📜 شهادة إتمام الصفقة</h2>
+            <p>تم التوثيق بواسطة نظام <b>Master Alpha</b></p>
+            <p>التوقيت: {time.strftime('%H:%M:%S')}</p>
         </div>
         """, unsafe_allow_html=True)
-        add_to_memory(f"Deal Finalized: {user_context}")
+        st.session_state.history.append(f"[{time.strftime('%H:%M:%S')}] - Deal Finalized")
 
-with col_prod:
-    # سماعات الأذنين والثمن (مربع معقول الحجم ومصفى) (النقطة 15)
+with bot_r:
+    # 15: السماعات والثمن في مربع معقول
     st.markdown(f"""
-    <div class="product-card">
-        <h3 style="color: #00ffcc;">🎧 {T['prod']}</h3>
-        <h2 style="color: white;">{T['price']}</h2>
-        <div style="font-size: 70px;">🎧</div>
-        <p style="color: #aaa; font-size: 11px; margin-top:10px;">Innovation Team Edition 2026</p>
+    <div style="border: 2px solid #00ffcc; border-radius: 15px; padding: 15px; text-align: center; background: rgba(255,255,255,0.1);">
+        <h4 style="color: #00ffcc;">سماعات كوفيه ستار</h4>
+        <h3 style="color: white;">99.99 $</h3>
+        <div style="font-size: 50px;">🎧</div>
+        <small style="color: #ccc;">Innovation Team Edition 2026</small>
     </div>
     """, unsafe_allow_html=True)
 
-# الوكيل صوني Sony للتفاعل (النقطة 16)
-chat_val = st.chat_input("Sony-Agent: أنا في انتظار أوامرك غداً...")
+# 16: خانة التفاعل مع صوني في الأسفل
+st.chat_input("...أنا في انتظار أوامرك غداً :Sony-Agent")
