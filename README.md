@@ -12,6 +12,7 @@ Our system is powered by an autonomous logic layer designed for high-security fi
 > 🔗 **Smart AI Agent Portal (Gemini Live):**
 > To interact with our specialized Technical Agent and get real-time answers about the ecosystem, use the link below:
 > [**Access Gemini Live Agent 🤖**](https://gemini.google.com/)
+> Or Copilot : https://copilot.microsoft.com/shares/ewLD6byuucEDfTbS7uAp4
 
 ---
 
